@@ -33,8 +33,8 @@ namespace ET
             zoneScene.GetComponent<SessionComponent>().Session.AddComponent<PingComponent>();
             
 
-            zoneScene.AddComponent<AccountInfoComponent>().Token = a2CLoginAccount.Token;
-            zoneScene.AddComponent<AccountInfoComponent>().AccountId = a2CLoginAccount.AccountId;
+            zoneScene.GetComponent<AccountInfoComponent>().Token = a2CLoginAccount.Token;
+            zoneScene.GetComponent<AccountInfoComponent>().AccountId = a2CLoginAccount.AccountId;
 
 
             return ErrorCode.ERR_Success;
