@@ -43,6 +43,7 @@ namespace ET
                         SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<TokenComponent>();
                     scene.AddComponent<AccountSessionsComponent>();
+                    scene.AddComponent<ServerInfoManagerComponent>();
                     break;
                 
                 case SceneType.LoginCenter:

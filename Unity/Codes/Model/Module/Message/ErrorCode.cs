@@ -20,6 +20,7 @@ namespace ET
         public const int ERR_PasswordFormError = 200005; //登录密码格式错误
         public const int ERR_AccountInBlackListError = 200006; //账号处于黑名单中
         public const int ERR_LoginPasswordError = 200007; //登录密码错误
-        public const int ERR_RequestRepeatedly = 200008; //多次的请求
+        public const int ERR_RequestRepeatedly = 200008; //反复多次的请求
+        public const int ERR_TokenError = 200009; //令牌Token错误
     }
 }
