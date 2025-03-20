@@ -4,7 +4,7 @@ namespace ET
 {
     public static class EUIModelViewHelper
     {
-        public static void AddUIScrollItems<K,T>(this K self, ref Dictionary<int, T> dictionary, int count) where K : Entity,IUILogic  where T : Entity,IAwake,IUIScrollItem
+        public static void AddUIScrollItems<T,K>(this K self, ref Dictionary<int, T> dictionary, int count) where K : Entity,IUILogic  where T : Entity,IAwake,IUIScrollItem
         {
             if (dictionary == null)
             {

@@ -17,13 +17,14 @@ namespace ET
 			}
 			return retVal.ToHex("x2");
 		}
-
+		
 		public static string StringMD5(string content)
 		{
 			MD5 md5 = MD5.Create();
-			byte[] result = Encoding.Default.GetBytes(content);
+			byte[] result = Encoding.Default.GetBytes(content);    
 			byte[] output = md5.ComputeHash(result);
-			return BitConverter.ToString(output).Replace("-", "");
+			return BitConverter.ToString(output).Replace("-","");  
 		}
+		
 	}
 }

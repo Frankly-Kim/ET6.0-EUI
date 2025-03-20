@@ -7,43 +7,60 @@ using UnityEngine.UI;
 
 namespace ET
 {
-    public static class DlgLoginSystem
-    {
-        public static void RegisterUIEvent(this DlgLogin self)
-        {
-            self.View.E_LoginButton.AddListenerAsync(() => {return self.OnLoginClickHandler(); });
-        }
+	public static  class DlgLoginSystem
+	{
 
-        public static void ShowWindow(this DlgLogin self, Entity contextData = null)
-        {
-        }
+		public static void RegisterUIEvent(this DlgLogin self)
+		{
+			self.View.E_LoginButton.AddListenerAsync(() => { return self.OnLoginClickHandler();});
+		}
 
-        public static async ETTask OnLoginClickHandler(this DlgLogin self)
-        {
-            try
-            {
-                int errorCode = await LoginHelper.Login(self.DomainScene(),
-                    ConstValue.LoginAddress,
-                    self.View.E_AccountInputField.GetComponent<InputField>().text,
-                    self.View.E_PasswordInputField.GetComponent<InputField>().text);
-                if (errorCode != ErrorCode.ERR_Success)
-                {
-                    Log.Error(errorCode.ToString());
-                    return;
-                }
+		public static void ShowWindow(this DlgLogin self, Entity contextData = null)
+		{
+			self.View.E_AccountInputField.text  = PlayerPrefs.GetString("Account", string.Empty);
+			self.View.E_PasswordInputField.text = PlayerPrefs.GetString("Password", string.Empty);
 
-                //TODO  显示登录之后的页面逻辑
-                self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
-                self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.ToString());
-            }
-        }
+		}
+		
+		public static async ETTask OnLoginClickHandler(this DlgLogin self)
+		{
+			try
+			{
+				string account = self.View.E_AccountInputField.text;
+				string password = self.View.E_PasswordInputField.text;
+				
+				
+				int errorCode =  await LoginHelper.Login(self.DomainScene(), ConstValue.LoginAddress, account, password);
+				if (errorCode != ErrorCode.ERR_Success)
+				{
+					Log.Error(errorCode.ToString());
+					return;
+				}
 
-        public static void HideWindow(this DlgLogin self)
-        {
-        }
-    }
+
+				errorCode = await LoginHelper.GetServerInfos(self.ZoneScene());
+				if (errorCode != ErrorCode.ERR_Success)
+				{
+					Log.Error(errorCode.ToString());
+					return;
+				}
+
+				self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
+				self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Server);
+				
+				PlayerPrefs.SetString("Account",account);
+				PlayerPrefs.SetString("Password",password);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.ToString());
+			}
+		}
+		
+		public static void HideWindow(this DlgLogin self)
+		{
+
+		}
+		
+	}
 }

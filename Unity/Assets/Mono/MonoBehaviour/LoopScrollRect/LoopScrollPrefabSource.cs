@@ -3,19 +3,11 @@ using UnityEngine;
 using System.Collections;
 using ET;
 
+
 namespace UnityEngine.UI
 {
-    public interface LoopScrollPrefabSource
-    {
-        GameObject GetObject(int index);
-
-        void ReturnObject(Transform trans,bool isDestroy = false);
-    }
-    
-    
-    
     [System.Serializable]
-    public class LoopScrollPrefabSourceInstance : LoopScrollPrefabSource
+    public class LoopScrollPrefabSource 
     {
         public string prefabName;
         public int poolSize = 5;
@@ -27,7 +19,7 @@ namespace UnityEngine.UI
             {
                 if(!inited)
                 {
-                    GameObjectPoolHelper.InitPool(prefabName, poolSize);
+                     GameObjectPoolHelper.InitPool(prefabName, poolSize);
                     inited = true;
                 }
                 return GameObjectPoolHelper.GetObjectFromPool(prefabName);
@@ -58,5 +50,4 @@ namespace UnityEngine.UI
             }
         }
     }
-    
 }

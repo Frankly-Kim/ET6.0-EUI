@@ -9,6 +9,9 @@ namespace ET
         public int ConfigId; //配置表id
 
         [BsonIgnore]
+        public UnitType Type => (UnitType)this.Config.Type;
+        
+        [BsonIgnore]
         public UnitConfig Config => UnitConfigCategory.Instance.Get(this.ConfigId);
 
         private WrapVector3 position = new WrapVector3(); //坐标
@@ -20,11 +23,14 @@ namespace ET
             {
                 EventType.ChangePosition.Instance.OldPos.Value = this.position.Value;
                 this.position.Value = value;
-
+                
                 EventType.ChangePosition.Instance.Unit = this;
                 Game.EventSystem.PublishClass(EventType.ChangePosition.Instance);
             }
         }
+        
+        
+
 
         [BsonIgnore]
         public Vector3 Forward

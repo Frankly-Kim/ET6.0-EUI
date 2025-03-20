@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 namespace UnityEngine.UI
@@ -8,5 +7,4 @@ namespace UnityEngine.UI
     {
         void ProvideData(Transform transform, int index);
     }
-    
 }

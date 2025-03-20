@@ -1,4 +1,4 @@
-namespace ET
+﻿namespace ET
 {
     [FriendClass(typeof(ServerInfo))]
     public static class ServerInfoSystem
@@ -8,7 +8,6 @@ namespace ET
             self.Id = serverInfoProto.Id;
             self.Status = serverInfoProto.Status;
             self.ServerName = serverInfoProto.ServerName;
-
         }
 
         public static ServerInfoProto ToMessage(this ServerInfo self)

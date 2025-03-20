@@ -9,27 +9,8 @@ namespace ET
         public override void Awake(UIBaseWindow self)
         {
             self.WindowData = self.AddChild<WindowCoreData>();
-            self.IsInStackQueue = false;
         }
     }
-    
-    [ObjectSystem]
-    public class UIBaseWindowDestroySystem : DestroySystem<UIBaseWindow>
-    {
-        public override void Destroy(UIBaseWindow self)
-        {
-            self.WindowData?.Dispose();
-            self.WindowID = WindowID.WindowID_Invaild;
-            self.IsInStackQueue = false;
-            if (self.UIPrefabGameObject != null)
-            {
-                GameObject.Destroy(self.UIPrefabGameObject);
-                self.UIPrefabGameObject = null;
-            }
-        }
-    }
-    
-    
     
     public  static class UIBaseWindowSystem  
     {

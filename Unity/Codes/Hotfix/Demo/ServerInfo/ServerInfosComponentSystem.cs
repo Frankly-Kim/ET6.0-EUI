@@ -1,7 +1,6 @@
-
-
-namespace ET
+﻿namespace ET
 {
+    
     public class ServerInfosComponentDestroySystem : DestroySystem<ServerInfosComponent>
     {
         public override void Destroy(ServerInfosComponent self)
@@ -11,11 +10,14 @@ namespace ET
                 serverInfo?.Dispose();
             }
             self.ServerInfoList.Clear();
+
+            self.CurrentServerId = 0;
         }
     }
     [FriendClass(typeof(ServerInfosComponent))]
     public static class ServerInfosComponentSystem
     {
+     
         public static void Add(this ServerInfosComponent self, ServerInfo serverInfo)
         {
             self.ServerInfoList.Add(serverInfo);

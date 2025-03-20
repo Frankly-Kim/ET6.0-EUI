@@ -88,9 +88,8 @@ namespace ET
 
         public void Send(MemoryStream stream)
         {
-            stream.Seek(Packet.ActorIdLength, SeekOrigin.Begin); // 外网不需要actorId
-            byte[] bytes = new byte[stream.Length - stream.Position];
-            Array.Copy(stream.GetBuffer(), Packet.ActorIdLength, bytes,0, bytes.Length);
+            byte[] bytes = new byte[stream.Length];
+            Array.Copy(stream.GetBuffer(), bytes, bytes.Length);
             this.queue.Enqueue(bytes);
 
             if (this.isConnected)

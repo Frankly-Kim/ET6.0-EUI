@@ -1,11 +1,11 @@
-namespace ET
+﻿namespace ET
 {
-    [FriendClassAttribute(typeof(ET.TokenComponent))]
+    [FriendClass(typeof(TokenComponent))]
     public static class TokenComponentSystem
     {
         public static void Add(this TokenComponent self, long key, string token)
         {
-            self.TokenDictionary.Add(key, token);
+            self.TokenDictionary.Add(key,token);
             self.TimeOutRemoveKey(key,token).Coroutine();
         }
 
@@ -14,7 +14,6 @@ namespace ET
             string value = null;
             self.TokenDictionary.TryGetValue(key, out value);
             return value;
-
         }
 
         public static void Remove(this TokenComponent self, long key)
@@ -35,6 +34,9 @@ namespace ET
             {
                 self.Remove(key);
             }
+
         }
+        
+        
     }
 }

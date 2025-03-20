@@ -77,8 +77,18 @@ namespace ET
             appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<System.Int64>, System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<System.Int64, System.Collections.Generic.List<ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Boolean>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int64, System.Int64>();
+            appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.Type, System.Int32>, System.Int32>();
+
+
 
             appdomain.DelegateManager.RegisterMethodDelegate<ET.AService>();
+            
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
+
+
 
             appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
             {
@@ -104,6 +114,42 @@ namespace ET
                 });
             });
 
+            
+            appdomain.DelegateManager.RegisterDelegateConvertor<DG.Tweening.TweenCallback>((act) =>
+            {
+                return new DG.Tweening.TweenCallback(() =>
+                {
+                    ((Action)act)();
+                });
+            });
+            
+            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction<System.Boolean>>((act) =>
+            {
+                return new UnityEngine.Events.UnityAction<System.Boolean>((arg0) =>
+                {
+                    ((Action<System.Boolean>)act)(arg0);
+                });
+            });
+            
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+            {
+                return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
+                {
+                    return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>)act)(obj);
+                });
+            });
+
+
+            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+            {
+                return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
+                {
+                    return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>)act)(x, y);
+                });
+            });
+
+
+            
             // 注册适配器
             RegisterAdaptor(appdomain);
             

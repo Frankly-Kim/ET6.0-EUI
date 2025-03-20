@@ -8,6 +8,10 @@ namespace ET
 		None,
 		Idle,
 		Run,
+		Attack,
+		Hurt,
+		Die,
+		Win
 	}
 
 	[ComponentOf(typeof(Unit))]

@@ -11,6 +11,7 @@ namespace ET
         {
             Scene currentScene = args.ZoneScene.CurrentScene();
             
+            args.ZoneScene.GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Loading);
             // 加载场景资源
             await ResourcesComponent.Instance.LoadBundleAsync($"{currentScene.Name}.unity3d");
             // 切换到map场景
@@ -30,6 +31,7 @@ namespace ET
 			
 
             currentScene.AddComponent<OperaComponent>();
+           
         }
     }
 }

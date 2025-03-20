@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace ET
 {
@@ -20,10 +20,11 @@ namespace ET
                 int zone = scene.GetComponent<LoginInfoRecordComponent>().Get(accountId);
                 StartSceneConfig gateConfig = RealmGateAddressHelper.GetGate(zone, accountId);
 
-                var g2LDisConnectGateUnit =
-                        (G2L_DisConnectGateUnit)await MessageHelper.CallActor(gateConfig.InstanceId,
+                var g2LDisconnectGateUnit =
+                        (G2L_DisconnectGateUnit)await MessageHelper.CallActor(gateConfig.InstanceId,
                             new L2G_DisconnectGateUnit() { AccountId = accountId });
-                response.Error = g2LDisConnectGateUnit.Error;
+
+                response.Error = g2LDisconnectGateUnit.Error;
                 reply();
             }
         }

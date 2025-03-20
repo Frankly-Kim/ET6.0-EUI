@@ -41,10 +41,10 @@ namespace ET
                         gateSession.Send(0, memoryStream);
                         return;
                     }
+
                 }
 #endif
-                        
-                        
+
                 type = OpcodeTypeComponent.Instance.GetType(opcode);
                 message = MessageSerializeHelper.DeserializeFrom(opcode, type, memoryStream);
 

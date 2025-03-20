@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 
 namespace ET
 {
@@ -20,10 +20,12 @@ namespace ET
             public Scene CurrentScene;
         }
 
+
+        
         public class ChangePosition: DisposeObject
         {
             public static readonly ChangePosition Instance = new ChangePosition();
-
+                    
             public Unit Unit;
             public WrapVector3 OldPos = new WrapVector3();
 
@@ -33,15 +35,15 @@ namespace ET
                 this.Unit = null;
             }
         }
-    
+ 
 
         public class ChangeRotation: DisposeObject
         {
             public static readonly ChangeRotation Instance = new ChangeRotation();
-                   
+            
             public Unit Unit;
-                   
-            // 因为是重复利用的，所以用完PublishClass会调用Dispose
+        
+               // 因为是重复利用的，所以用完PublishClass会调用Dispose
             public override void Dispose()
             {
                 this.Unit = null;
@@ -108,5 +110,56 @@ namespace ET
         {
             public Unit Unit;
         }
+
+        public struct UnitEnterSightRange
+        {
+        }
+        
+        public struct StartGameLevel
+        {
+            public Scene ZoneScene;
+        }
+        
+        public struct AdventureBattleRound
+        {
+            public Scene ZoneScene;
+            public Unit AttackUnit;
+            public Unit TargetUnit;
+        }
+        public struct AdventureBattleRoundView
+        {
+            public Scene ZoneScene;
+            public Unit AttackUnit;
+            public Unit TargetUnit;
+        }
+
+
+        public struct AdventureBattleOver
+        {
+            public Scene ZoneScene;
+            public Unit WinUnit;
+        }
+        
+        public struct ExpChange
+        {
+            public Scene ZoneScene;
+            public bool isEnoughUpLevel;
+        }
+        
+        public struct MakeQueueOver
+        {
+            public Scene ZoneScene;
+        }
+        
+        public struct UpdateTaskInfo
+        {
+            public Scene ZoneScene;
+        }
+        
+        public struct UpdateChatInfo
+        {
+            public Scene ZoneScene;
+        }
+        
     }
 }

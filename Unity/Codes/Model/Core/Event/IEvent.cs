@@ -43,7 +43,7 @@ namespace ET
 			return typeof (A);
 		}
 
-		protected abstract void Run(A a);
+		protected abstract void Run(A args);
 
 		public void Handle(A a)
 		{

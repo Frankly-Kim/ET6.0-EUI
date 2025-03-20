@@ -1,5 +1,6 @@
-namespace ET
+﻿namespace ET
 {
+    
     public class ServerInfoManagerComponentAwakeSystem : AwakeSystem<ServerInfoManagerComponent>
     {
         public override void Awake(ServerInfoManagerComponent self)
@@ -27,6 +28,8 @@ namespace ET
             self.Awake().Coroutine();
         }
     }
+
+    [FriendClass(typeof(ServerInfo))]
     [FriendClass(typeof(ServerInfoManagerComponent))]
     public static class ServerInfoManagerComponentSystem
     {
@@ -36,19 +39,31 @@ namespace ET
 
             if (serverInfoList == null || serverInfoList.Count <= 0)
             {
-                Log.Error("server info count  is zero");
+                Log.Error("serverInfo  count is zero");
+                self.ServerInfos.Clear();
+                var serverInfoConfigs = ServerInfoConfigCategory.Instance.GetAll();
+
+                foreach (var info in serverInfoConfigs.Values)
+                {
+                    ServerInfo newServerInfo = self.AddChildWithId<ServerInfo>(info.Id);
+                    newServerInfo.ServerName = info.ServerName;
+                    newServerInfo.Status = (int)ServerStatus.Normal;
+                    self.ServerInfos.Add(newServerInfo);
+                    await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Save(newServerInfo);
+                }
+
                 return;
             }
             self.ServerInfos.Clear();
 
             foreach (var serverInfo in serverInfoList)
             {
-                self.AddChild<ServerInfo>();
+                self.AddChild(serverInfo);
                 self.ServerInfos.Add(serverInfo);
             }
-
-
+            
             await ETTask.CompletedTask;
         }
+        
     }
 }

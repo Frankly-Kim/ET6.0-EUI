@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 
 namespace ET
@@ -27,7 +27,7 @@ namespace ET
 
             if (string.IsNullOrEmpty(request.AccountName) || string.IsNullOrEmpty(request.Password))
             {
-                response.Error = ErrorCode.ERR_LoginInfoError;
+                response.Error = ErrorCode.ERR_LoginInfoIsNull;
                 reply();
                 session.Disconnect().Coroutine();
                 return;
@@ -49,18 +49,27 @@ namespace ET
                 return;
             }
 
+            if (session.GetComponent<AccountsZone>() == null)
+            {
+                session.AddComponent<AccountsZone>();
+            }
+
+            if (session.GetComponent<RoleInfosZone>() == null)
+            {
+                session.AddComponent<RoleInfosZone>();
+            }
+
             using (session.AddComponent<SessionLockingComponent>())
             {
                 using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.LoginAccount, request.AccountName.Trim().GetHashCode()))
                 {
-                    var accountInfoList = await DBManagerComponent.Instance.GetZoneDB((session.DomainZone()))
+                    var accountInfoList = await DBManagerComponent.Instance.GetZoneDB(session.DomainZone())
                             .Query<Account>(d => d.AccountName.Equals(request.AccountName.Trim()));
                     Account account = null;
-
                     if (accountInfoList != null && accountInfoList.Count > 0)
                     {
                         account = accountInfoList[0];
-                        session.AddChild(account);
+                        session.GetComponent<AccountsZone>().AddChild(account);
                         if (account.AccountType == (int)AccountType.BlackList)
                         {
                             response.Error = ErrorCode.ERR_AccountInBlackListError;
@@ -81,12 +90,12 @@ namespace ET
                     }
                     else
                     {
-                        account = session.AddChild<Account>();
+                        account = session.GetComponent<AccountsZone>().AddChild<Account>();
                         account.AccountName = request.AccountName.Trim();
-                        account.Password = request.Password.Trim();
+                        account.Password = request.Password;
                         account.CreateTime = TimeHelper.ServerNow();
                         account.AccountType = (int)AccountType.General;
-                        await DBManagerComponent.Instance.GetZoneDB(session.DomainZone()).Save(account);
+                        await DBManagerComponent.Instance.GetZoneDB(session.DomainZone()).Save<Account>(account);
                     }
 
                     StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCenter");
@@ -97,6 +106,7 @@ namespace ET
                     if (loginAccountResponse.Error != ErrorCode.ERR_Success)
                     {
                         response.Error = loginAccountResponse.Error;
+
                         reply();
                         session?.Disconnect().Coroutine();
                         account?.Dispose();

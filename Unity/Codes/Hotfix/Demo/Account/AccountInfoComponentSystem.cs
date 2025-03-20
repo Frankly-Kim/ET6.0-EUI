@@ -1,10 +1,11 @@
-namespace ET
+﻿namespace ET
 {
-    public class AccountInfoComponentDestroySystem : DestroySystem<AccountInfoComponent>
+    
+    public class AccountInfoComponentDetroySystem: DestroySystem<AccountInfoComponent>
     {
         public override void Destroy(AccountInfoComponent self)
         {
-            self.Token = null;
+            self.Token = string.Empty;
             self.AccountId = 0;
         }
     }

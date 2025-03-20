@@ -1,18 +1,20 @@
-namespace ET
+﻿namespace ET
 {
-    public class AccountSessionsComponentDestroySystem: DestroySystem<AccountSessionsComponent>
+    
+    public class AccountSessionsComponentDestroySystem:DestroySystem<AccountSessionsComponent>
     {
         public override void Destroy(AccountSessionsComponent self)
         {
             self.AccountSessionDictionary.Clear();
         }
     }
-    [FriendClassAttribute(typeof(ET.AccountSessionsComponent))]
+
+    [FriendClass(typeof(AccountSessionsComponent))]
     public static class AccountSessionsComponentSystem
     {
         public static long Get(this AccountSessionsComponent self, long accountId)
         {
-            if (!self.AccountSessionDictionary.TryGetValue(accountId, out long instanceId))
+            if (!self.AccountSessionDictionary.TryGetValue(accountId,out long instanceId))
             {
                 return 0;
             }
@@ -27,8 +29,9 @@ namespace ET
                 self.AccountSessionDictionary[accountId] = sessionInstanceId;
                 return;
             }
-            self.AccountSessionDictionary.Add(accountId, sessionInstanceId);
+            self.AccountSessionDictionary.Add(accountId,sessionInstanceId);
         }
+
 
         public static void Remove(this AccountSessionsComponent self, long accountId)
         {
@@ -37,10 +40,6 @@ namespace ET
                 self.AccountSessionDictionary.Remove(accountId);
             }
         }
-        
-        
-        
-        
-        
+
     }
 }

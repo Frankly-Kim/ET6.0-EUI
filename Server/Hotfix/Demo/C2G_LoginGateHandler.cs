@@ -3,7 +3,6 @@
 
 namespace ET
 {
-	[MessageHandler]
 	[FriendClass(typeof(SessionPlayerComponent))]
 	public class C2G_LoginGateHandler : AMRpcHandler<C2G_LoginGate, G2C_LoginGate>
 	{
@@ -32,4 +31,5 @@ namespace ET
 			await ETTask.CompletedTask;
 		}
 	}
+	
 }

@@ -19,11 +19,20 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+
     <Compile Include="..\..\Unity\Codes\Hotfix\Demo\Move\MoveComponentSystem.cs">
       <Link>Demo\Move\MoveComponentSystem.cs</Link>
     </Compile>
+
+    <Compile Include="..\..\Unity\Codes\Hotfix\Demo\Role\RoleInfoSystem.cs">
+      <Link>Demo\Role\RoleInfoSystem.cs</Link>
+    </Compile>
     <Compile Include="..\..\Unity\Codes\Hotfix\Demo\ServerInfo\ServerInfoSystem.cs">
       <Link>Demo\ServerInfo\ServerInfoSystem.cs</Link>
+    </Compile>
+
+    <Compile Include="..\..\Unity\Codes\Hotfix\Demo\Unit\UnitNumericHelper.cs">
+      <Link>Demo\Unit\UnitNumericHelper.cs</Link>
     </Compile>
     <Compile Include="..\..\Unity\Codes\Hotfix\Module\Config\ConfigComponentSystem.cs">
       <Link>Module\Config\ConfigComponentSystem.cs</Link>
@@ -45,7 +54,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tools\Analyzer\Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	<ProjectReference Include="..\..\Tools\Analyzer\Analyzer.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Model\Server.Model.csproj" />
   </ItemGroup>
 </Project>
